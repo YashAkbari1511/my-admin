@@ -11,7 +11,7 @@ export interface Savings {
   userId: string;
   title: string;
   amount: number;
-  date: string;,
+  date: string;
   createdAt: number;
 }
 
