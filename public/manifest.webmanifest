@@ -1,6 +1,6 @@
 {
-  "name": "finance-dashboard",
-  "short_name": "finance-dashboard",
+  "name": "My Admin",
+  "short_name": "My Admin",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
