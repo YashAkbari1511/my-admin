@@ -15,7 +15,7 @@
   <div class="glass-card stat-card">
     <div class="stat-info">
       <p class="stat-label">TOTAL INVESTMENT</p>
-      <h3 class="stat-value">{{ totalInvestment | currency }}</h3>
+      <h3 class="stat-value">{{ totalInvestment | currency:'INR' }}</h3>
     </div>
     <div class="stat-icon-wrapper">
       <ion-icon name="trending-up-outline" class="stat-icon"></ion-icon>
@@ -25,7 +25,7 @@
   <div class="glass-card stat-card">
     <div class="stat-info">
       <p class="stat-label">TOTAL RETURN</p>
-      <h3 class="stat-value">{{ totalReturn | currency }}</h3>
+      <h3 class="stat-value">{{ totalReturn | currency:'INR' }}</h3>
     </div>
     <div class="stat-icon-wrapper">
       <ion-icon name="cash-outline" class="stat-icon "></ion-icon>
@@ -36,7 +36,7 @@
     <div class="stat-info">
       <p class="statlabel-">TOTAL PROFIT</p>
       <h3 class="stat-value">
-        {{ totalProfit >= 0 ? '+' : '' }}{{ totalProfit | currency }}
+        {{ totalProfit >= 0 ? '+' : '' }}{{ totalProfit | currency:'INR' }}
       </h3>
     </div>
     <div class="stat-icon-wrapper">
@@ -69,10 +69,10 @@
           @for (item of filteredInvestments; track item) {
             <tr>
               <td class="font-weight-bold text-white">{{ item.title }}</td>
-              <td class="text-primary font-weight-bold">{{ item.investmentAmount | currency }}</td>
+              <td class="text-primary font-weight-bold">{{ item.investmentAmount | currency:'INR' }}</td>
               <td>
                 <span class="glass-badge" [ngClass]="item.returnAmount >= 0 ? 'badge-success' : 'badge-warning'">
-                  {{ item.returnAmount >= 0 ? '+' : '' }}{{ item.returnAmount | currency }}
+                  {{ item.returnAmount >= 0 ? '+' : '' }}{{ item.returnAmount | currency:'INR' }}
                 </span>
               </td>
               <td class="text-muted">{{ item.date | date:'mediumDate' }}</td>
@@ -114,14 +114,14 @@
         <div class="form-group">
           <label>Invested Amount</label>
           <div class="input-with-icon">
-            <span class="currency-symbol">$</span>
+            <span class="currency-symbol">₹</span>
             <input type="number" class="form-control" formControlName="investmentAmount" placeholder="0.00">
           </div>
         </div>
         <div class="form-group">
           <label>Return Amount</label>
           <div class="input-with-icon">
-            <span class="currency-symbol">$</span>
+            <span class="currency-symbol">₹</span>
             <input type="number" class="form-control" formControlName="returnAmount" placeholder="0.00">
           </div>
         </div>

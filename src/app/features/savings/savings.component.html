@@ -14,7 +14,7 @@
   <div class="glass-card stat-card">
     <div class="stat-info">
       <p class="stat-label">TOTAL SAVINGS</p>
-      <h3 class="stat-value">{{ totalSavings | currency }}</h3>
+      <h3 class="stat-value">{{ totalSavings | currency:'INR' }}</h3>
     </div>
     <div class="stat-icon-wrapper">
       <ion-icon name="cash-outline" class="stat-icon"></ion-icon>
@@ -45,7 +45,7 @@
           @for (item of filteredSavings; track item) {
             <tr>
               <td class="font-weight-bold text-white">{{ item.title }}</td>
-              <td class="text-success font-weight-bold">+{{ item.amount | currency }}</td>
+              <td class="text-success font-weight-bold">+{{ item.amount | currency:'INR' }}</td>
               <td class="text-muted">{{ item.date | date:'mediumDate' }}</td>
               <td class="text-right action-cells" style="text-align: right;">
                 <button class="btn-icon-only text-info" (click)="openEditDialog(item)">
@@ -85,7 +85,7 @@
         <div class="form-group">
           <label>Amount</label>
           <div class="input-with-icon">
-            <span class="currency-symbol">$</span>
+            <span class="currency-symbol">₹</span>
             <input type="number" class="form-control" formControlName="amount" placeholder="0.00">
           </div>
         </div>
