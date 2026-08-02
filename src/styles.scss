@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import 'ngx-toastr/toastr';
+
+:root {
+  /* Premium Dark Theme */
+  --bg-primary: #0b0d0f;
+  --bg-secondary: #141719;
+  --bg-accent: #101214;
+  
+  --text-primary: #f5f6f7;
+  --text-secondary: rgba(245, 246, 247, 0.42);
+  
+  --primary-color: #35e3a3;
+  --primary-hover: #2ac58d;
+  
+  --success: #35e3a3;
+  --warning: #f59e0b;
+  --danger: #ff4747;
+
+  --border-color: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(20, 23, 25, 0.6);
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 20px rgba(53, 227, 163, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,25 @@
+<div id="login">
+  <section>
+    <div class="form-box">
+      <div class="form-value">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="inputbox">
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="email" formControlName="email" required>
+            <label for="">Email</label>
+          </div>
+          <div class="inputbox">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" formControlName="password" required>
+            <label for="">Password</label>
+          </div>
+          <button type="submit" [disabled]="loginForm.invalid">{{ isLoginMode ? 'Log in' : 'Register' }}</button>
+          <div class="register">
+            <p>{{ isLoginMode ? "Don't have an account" : 'Already have an account?' }} <a href="javascript:void(0)"
+                (click)="toggleMode()">{{ isLoginMode ? 'Register' : 'Login' }}</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>

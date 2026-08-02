@@ -1,0 +1,26 @@
+<div class="launcher" [class.open]="isOpen">
+  <!-- The Menu Card -->
+  <div class="menu-card">
+    <div class="menu-item" (click)="navigate('/income')">
+      <span class="label">Income</span>
+    </div>
+    <div class="menu-item" (click)="navigate('/savings')">
+      <span class="label">Savings</span>
+    </div>
+    <div class="menu-item" (click)="navigate('/investments')">
+      <span class="label">Investments</span>
+    </div>
+    
+    <div class="menu-divider"></div>
+    
+    <div class="menu-item logout" (click)="logout()">
+      <span class="label">Logout</span>
+    </div>
+  </div>
+
+  <!-- The Trigger Hub -->
+  <div class="hub" (click)="toggle()">
+    <div class="ring"></div>
+    <div class="plus"></div>
+  </div>
+</div>

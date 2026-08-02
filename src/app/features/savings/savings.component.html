@@ -1,0 +1,119 @@
+<div class="dashboard-header mb-4">
+  <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 20px;">
+    <div>
+      <h3 class="font-weight-bold page-title">Savings</h3>
+    </div>
+    <button class="btn-glass" (click)="openAddDialog()">
+      <ion-icon name="add-outline" class="btn-icon"></ion-icon>
+      New Savings
+    </button>
+  </div>
+</div>
+
+<div class="stat-boxes-grid">
+  <div class="glass-card stat-card">
+    <div class="stat-info">
+      <p class="stat-label">TOTAL SAVINGS</p>
+      <h3 class="stat-value">{{ totalSavings | currency }}</h3>
+    </div>
+    <div class="stat-icon-wrapper">
+      <ion-icon name="cash-outline" class="stat-icon"></ion-icon>
+    </div>
+  </div>
+</div>
+
+<div class="table-section mb-4">
+  <div class="glass-card">
+    <div class="d-flex align-items-center mb-4 search-header">
+      <div class="glass-search w-100" style="max-width: 400px;">
+        <ion-icon name="search-outline" class="search-icon"></ion-icon>
+        <input type="text" class="search-field" placeholder="Search records..." (keyup)="applyFilter($event)">
+      </div>
+    </div>
+    
+    <div class="table-responsive glass-table-container">
+      <table class="table glass-table">
+        <thead>
+          <tr>
+            <th>TITLE</th>
+            <th>AMOUNT</th>
+            <th>DATE</th>
+            <th class="text-right" style="text-align: right;">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of filteredSavings; track item) {
+            <tr>
+              <td class="font-weight-bold text-white">{{ item.title }}</td>
+              <td class="text-success font-weight-bold">+{{ item.amount | currency }}</td>
+              <td class="text-muted">{{ item.date | date:'mediumDate' }}</td>
+              <td class="text-right action-cells" style="text-align: right;">
+                <button class="btn-icon-only text-info" (click)="openEditDialog(item)">
+                  <ion-icon name="create-outline"></ion-icon>
+                </button>
+                <button class="btn-icon-only text-danger" (click)="promptDelete(item)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
+              </td>
+            </tr>
+          }
+          @if (filteredSavings.length === 0) {
+            <tr>
+              <td colspan="5" class="text-center py-5 empty-state">
+                <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+                <br>
+                <p>No savings records found.</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Modal -->
+@if (showDialog) {
+  <div class="glass-modal-backdrop" (click)="closeDialog()">
+    <div class="glass-modal" (click)="$event.stopPropagation()">
+      <h4 class="modal-title">{{ isEditMode ? 'Edit Savings' : 'Add Savings' }}</h4>
+      <form [formGroup]="savingsForm" (ngSubmit)="saveSavings()" class="glass-form">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" class="form-control" formControlName="title" placeholder="e.g. Monthly Savings">
+        </div>
+        <div class="form-group">
+          <label>Amount</label>
+          <div class="input-with-icon">
+            <span class="currency-symbol">$</span>
+            <input type="number" class="form-control" formControlName="amount" placeholder="0.00">
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <label>Date</label>
+          <input type="date" class="form-control" formControlName="date">
+        </div>
+        <div class="d-flex justify-content-end action-buttons">
+          <button type="button" class="btn-glass-secondary mr-2" (click)="closeDialog()">CANCEL</button>
+          <button type="submit" class="btn-glass-primary" [disabled]="savingsForm.invalid">SAVE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
+
+<!-- Delete Modal -->
+@if (showConfirmDialog) {
+  <div class="glass-modal-backdrop" (click)="showConfirmDialog = false">
+    <div class="glass-modal modal-sm" (click)="$event.stopPropagation()">
+      <h4 class="modal-title text-danger d-flex align-items-center">
+        <ion-icon name="warning-outline" class="mr-2" style="font-size: 24px;"></ion-icon> Delete Savings?
+      </h4>
+      <p class="modal-text">Are you sure you want to delete <span class="font-weight-bold text-white">{{ itemToDelete?.title }}</span>? This action cannot be undone.</p>
+      <div class="d-flex justify-content-end action-buttons mt-4">
+        <button type="button" class="btn-glass-secondary mr-2" (click)="showConfirmDialog = false">CANCEL</button>
+        <button type="button" class="btn-glass-danger" (click)="confirmDelete()">DELETE</button>
+      </div>
+    </div>
+  </div>
+}
