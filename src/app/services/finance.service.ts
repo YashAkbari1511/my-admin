@@ -27,7 +27,7 @@ export class FinanceService {
       switchMap(u => {
         if (!u) return of([]);
         const incomesRef = collection(this.firestore, `users/${u.uid}/income`);
-        const q = query(incomesRef, orderBy('date', 'desc'));
+        const q = query(incomesRef, orderBy('createdAt', 'desc'));
         return collectionData(q, { idField: 'id' }) as Observable<Income[]>;
       })
     );
@@ -54,7 +54,7 @@ export class FinanceService {
       switchMap(u => {
         if (!u) return of([]);
         const savingsRef = collection(this.firestore, `users/${u.uid}/savings`);
-        const q = query(savingsRef, orderBy('date', 'desc'));
+        const q = query(savingsRef, orderBy('createdAt', 'desc'));
         return collectionData(q, { idField: 'id' }) as Observable<Savings[]>;
       })
     );
@@ -81,7 +81,7 @@ export class FinanceService {
       switchMap(u => {
         if (!u) return of([]);
         const investmentsRef = collection(this.firestore, `users/${u.uid}/investments`);
-        const q = query(investmentsRef, orderBy('date', 'desc'));
+        const q = query(investmentsRef, orderBy('createdAt', 'desc'));
         return collectionData(q, { idField: 'id' }) as Observable<Investment[]>;
       })
     );

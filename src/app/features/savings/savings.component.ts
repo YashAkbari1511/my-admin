@@ -92,7 +92,8 @@ export class SavingsComponent implements OnInit {
       title: formValue.title,
       amount: Number(formValue.amount),
       userId: 'mock-user-id',
-      date: formValue.date
+      date: formValue.date,
+      createdAt: Date.now()
     };
 
     try {
