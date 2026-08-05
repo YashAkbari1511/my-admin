@@ -3,7 +3,7 @@ import { Firestore, collection, collectionData, addDoc, doc, updateDoc, deleteDo
 import { Auth, user } from '@angular/fire/auth';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Income, Savings, Investment } from '../models/finance.model';
+import { Income, Savings, Investment, YearlySaving } from '../models/finance.model';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +99,33 @@ export class FinanceService {
 
   deleteInvestment(id: string) {
     const docRef = doc(this.firestore, `users/${this.uid}/investments/${id}`);
+    return deleteDoc(docRef);
+  }
+
+  // Yearly Savings
+  getYearlySavings(): Observable<YearlySaving[]> {
+    return this.user$.pipe(
+      switchMap(u => {
+        if (!u) return of([]);
+        const ysRef = collection(this.firestore, `users/${u.uid}/yearlySavings`);
+        const q = query(ysRef, orderBy('createdAt', 'desc'));
+        return collectionData(q, { idField: 'id' }) as Observable<YearlySaving[]>;
+      })
+    );
+  }
+
+  addYearlySaving(saving: YearlySaving) {
+    const ysRef = collection(this.firestore, `users/${this.uid}/yearlySavings`);
+    return addDoc(ysRef, saving);
+  }
+
+  updateYearlySaving(id: string, data: Partial<YearlySaving>) {
+    const docRef = doc(this.firestore, `users/${this.uid}/yearlySavings/${id}`);
+    return updateDoc(docRef, data);
+  }
+
+  deleteYearlySaving(id: string) {
+    const docRef = doc(this.firestore, `users/${this.uid}/yearlySavings/${id}`);
     return deleteDoc(docRef);
   }
 }

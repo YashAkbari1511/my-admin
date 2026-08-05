@@ -1,4 +1,5 @@
 import { Component, inject, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -32,6 +33,7 @@ export class LoginComponent {
   }
 
   async onSubmit() {
+    this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       

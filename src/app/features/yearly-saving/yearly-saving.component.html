@@ -1,0 +1,122 @@
+<div class="dashboard-header mb-4">
+  <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 20px;">
+    <div>
+      <h3 class="font-weight-bold page-title">SIP Growth Calculator</h3>
+    </div>
+  </div>
+</div>
+
+<div class="glass-card mb-4" style="height: auto; margin-bottom: 32px">
+  <form [formGroup]="calcForm" class="glass-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+    <div class="form-group" style="margin-bottom: 0;">
+      <label>Yearly Investment <span class="text-danger">*</span></label>
+      <div class="input-with-icon">
+        <span class="currency-symbol">₹</span>
+        <input type="number" class="form-control" formControlName="yearlyAmount" 
+          [ngClass]="{'border-danger': calcForm.get('yearlyAmount')?.invalid && (calcForm.get('yearlyAmount')?.dirty || calcForm.get('yearlyAmount')?.touched)}">
+      </div>
+      @if (calcForm.get('yearlyAmount')?.invalid && (calcForm.get('yearlyAmount')?.dirty || calcForm.get('yearlyAmount')?.touched)) {
+        <div class="text-danger small mt-1">
+          @if (calcForm.get('yearlyAmount')?.errors?.['required']) { <span>Amount is required.</span> }
+          @if (calcForm.get('yearlyAmount')?.errors?.['min']) { <span>Amount must be >= 0.</span> }
+        </div>
+      }
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 0;">
+      <label>Annual Return Rate <span class="text-danger">*</span></label>
+      <div class="input-with-icon">
+        <span class="currency-symbol">%</span>
+        <input type="number" class="form-control" formControlName="returnRate"
+          [ngClass]="{'border-danger': calcForm.get('returnRate')?.invalid && (calcForm.get('returnRate')?.dirty || calcForm.get('returnRate')?.touched)}">
+      </div>
+      @if (calcForm.get('returnRate')?.invalid && (calcForm.get('returnRate')?.dirty || calcForm.get('returnRate')?.touched)) {
+        <div class="text-danger small mt-1">
+          @if (calcForm.get('returnRate')?.errors?.['required']) { <span>Rate is required.</span> }
+          @if (calcForm.get('returnRate')?.errors?.['min']) { <span>Rate must be >= 0.</span> }
+        </div>
+      }
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 0;">
+      <label>Number of Years <span class="text-danger">*</span></label>
+      <input type="number" class="form-control" formControlName="years"
+        [ngClass]="{'border-danger': calcForm.get('years')?.invalid && (calcForm.get('years')?.dirty || calcForm.get('years')?.touched)}">
+      @if (calcForm.get('years')?.invalid && (calcForm.get('years')?.dirty || calcForm.get('years')?.touched)) {
+        <div class="text-danger small mt-1">
+          @if (calcForm.get('years')?.errors?.['required']) { <span>Years is required.</span> }
+          @if (calcForm.get('years')?.errors?.['min']) { <span>Years must be >= 1.</span> }
+        </div>
+      }
+    </div>
+  </form>
+</div>
+
+<div class="stat-boxes-grid mb-4">
+  <div class="glass-card stat-card">
+    <div class="stat-info">
+      <p class="stat-label">TOTAL AMOUNT INVESTED</p>
+      <h3 class="stat-value text-primary">{{ totalInvested | currency:'INR':'symbol':'1.0-0' }}</h3>
+    </div>
+    <div class="stat-icon-wrapper">
+      <ion-icon name="wallet-outline" class="stat-icon"></ion-icon>
+    </div>
+  </div>
+
+  <div class="glass-card stat-card">
+    <div class="stat-info">
+      <p class="stat-label">TOTAL RETURNS EARNED</p>
+      <h3 class="stat-value text-success">+{{ totalReturns | currency:'INR':'symbol':'1.0-0' }}</h3>
+    </div>
+    <div class="stat-icon-wrapper">
+      <ion-icon name="trending-up-outline" class="stat-icon"></ion-icon>
+    </div>
+  </div>
+
+  <div class="glass-card stat-card">
+    <div class="stat-info">
+      <p class="stat-label">FINAL CLOSING BALANCE</p>
+      <h3 class="stat-value text-white">{{ finalBalance | currency:'INR':'symbol':'1.0-0' }}</h3>
+    </div>
+    <div class="stat-icon-wrapper">
+      <ion-icon name="cash-outline" class="stat-icon"></ion-icon>
+    </div>
+  </div>
+</div>
+
+<div class="table-section mb-4">
+  <div class="glass-card">
+    <h4 class="text-white mb-4" style="font-weight: 600; font-size: 18px;">Year-by-Year Growth</h4>
+    <div class="table-responsive glass-table-container">
+      <table class="table glass-table">
+        <thead>
+          <tr>
+            <th>YEAR</th>
+            <th>OPENING BALANCE</th>
+            <th>AMOUNT ADDED</th>
+            <th>RETURN EARNED</th>
+            <th class="text-right" style="text-align: right;">CLOSING BALANCE</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of tableData; track row.year) {
+            <tr>
+              <td class="font-weight-bold text-white">Year {{ row.year }}</td>
+              <td class="text-muted">{{ row.openingBalance | currency:'INR':'symbol':'1.0-0' }}</td>
+              <td class="text-primary">+{{ row.amountAdded | currency:'INR':'symbol':'1.0-0' }}</td>
+              <td class="text-success">+{{ row.returnEarned | currency:'INR':'symbol':'1.0-0' }}</td>
+              <td class="text-right font-weight-bold text-white" style="text-align: right;">{{ row.closingBalance | currency:'INR':'symbol':'1.0-0' }}</td>
+            </tr>
+          }
+          @if (tableData.length === 0) {
+            <tr>
+              <td colspan="5" class="text-center py-5 empty-state">
+                <p>Please enter valid values to see the calculation.</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

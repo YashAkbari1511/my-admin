@@ -85,6 +85,7 @@ export class IncomeComponent implements OnInit {
   }
 
   async saveIncome() {
+    this.incomeForm.markAllAsTouched();
     if (this.incomeForm.invalid) return;
     
     const formValue = this.incomeForm.value;

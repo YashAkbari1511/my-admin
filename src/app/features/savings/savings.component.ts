@@ -85,6 +85,7 @@ export class SavingsComponent implements OnInit {
   }
 
   async saveSavings() {
+    this.savingsForm.markAllAsTouched();
     if (this.savingsForm.invalid) return;
     
     const formValue = this.savingsForm.value;

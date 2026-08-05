@@ -23,3 +23,13 @@ export interface Investment {
   returnAmount: number;
   createdAt: number;
 }
+
+export interface YearlySaving {
+  id?: string;
+  date: string;
+  title: string;
+  amount: number;
+  returnRate: number;
+  totalAmount: number;
+  createdAt: number;
+}

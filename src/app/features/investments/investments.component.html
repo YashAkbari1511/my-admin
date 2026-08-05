@@ -108,26 +108,50 @@
       <h4 class="modal-title">{{ isEditMode ? 'Edit Investment' : 'Add Investment' }}</h4>
       <form [formGroup]="investmentForm" (ngSubmit)="saveInvestment()" class="glass-form">
         <div class="form-group">
-          <label>Title</label>
-          <input type="text" class="form-control" formControlName="title" placeholder="e.g. Stock Purchase">
+          <label>Title <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" [ngClass]="{'border-danger': investmentForm.get('title')?.invalid && (investmentForm.get('title')?.dirty || investmentForm.get('title')?.touched)}" formControlName="title" placeholder="e.g. Stock Purchase">
+          @if (investmentForm.get('title')?.invalid && (investmentForm.get('title')?.dirty || investmentForm.get('title')?.touched)) {
+            <div class="text-danger small mt-1">
+              @if (investmentForm.get('title')?.errors?.['required']) {
+                <span>Title is required.</span>
+              }
+            </div>
+          }
         </div>
         <div class="form-group">
-          <label>Invested Amount</label>
+          <label>Invested Amount <span class="text-danger">*</span></label>
           <div class="input-with-icon">
             <span class="currency-symbol">₹</span>
-            <input type="number" class="form-control" formControlName="investmentAmount" placeholder="0.00">
+            <input type="number" class="form-control" [ngClass]="{'border-danger': investmentForm.get('investmentAmount')?.invalid && (investmentForm.get('investmentAmount')?.dirty || investmentForm.get('investmentAmount')?.touched)}" formControlName="investmentAmount" placeholder="0.00">
           </div>
+          @if (investmentForm.get('investmentAmount')?.invalid && (investmentForm.get('investmentAmount')?.dirty || investmentForm.get('investmentAmount')?.touched)) {
+            <div class="text-danger small mt-1">
+              @if (investmentForm.get('investmentAmount')?.errors?.['required']) {
+                <span>Invested Amount is required.</span>
+              }
+              @if (investmentForm.get('investmentAmount')?.errors?.['min']) {
+                <span>Invested Amount must be greater than 0.</span>
+              }
+            </div>
+          }
         </div>
         <div class="form-group">
           <label>Return Amount</label>
           <div class="input-with-icon">
             <span class="currency-symbol">₹</span>
-            <input type="number" class="form-control" formControlName="returnAmount" placeholder="0.00">
+            <input type="number" class="form-control" [ngClass]="{'border-danger': investmentForm.get('returnAmount')?.invalid && (investmentForm.get('returnAmount')?.dirty || investmentForm.get('returnAmount')?.touched)}" formControlName="returnAmount" placeholder="0.00">
           </div>
         </div>
         <div class="form-group mb-4">
-          <label>Date</label>
-          <input type="date" class="form-control" formControlName="date">
+          <label>Date <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" [ngClass]="{'border-danger': investmentForm.get('date')?.invalid && (investmentForm.get('date')?.dirty || investmentForm.get('date')?.touched)}" formControlName="date">
+          @if (investmentForm.get('date')?.invalid && (investmentForm.get('date')?.dirty || investmentForm.get('date')?.touched)) {
+            <div class="text-danger small mt-1">
+              @if (investmentForm.get('date')?.errors?.['required']) {
+                <span>Date is required.</span>
+              }
+            </div>
+          }
         </div>
         <div class="d-flex justify-content-end action-buttons">
           <button type="button" class="btn-glass-secondary mr-2" (click)="closeDialog()">CANCEL</button>

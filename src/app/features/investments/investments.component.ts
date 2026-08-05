@@ -92,6 +92,7 @@ export class InvestmentsComponent implements OnInit {
   }
 
   async saveInvestment() {
+    this.investmentForm.markAllAsTouched();
     if (this.investmentForm.invalid) return;
     
     const formValue = this.investmentForm.value;

@@ -17,7 +17,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'income', pathMatch: 'full' },
       { path: 'income', component: IncomeComponent },
       { path: 'savings', component: SavingsComponent },
-      { path: 'investments', component: InvestmentsComponent }
+      { path: 'investments', component: InvestmentsComponent },
+      { path: 'yearly-saving', loadComponent: () => import('./features/yearly-saving/yearly-saving.component').then(m => m.YearlySavingComponent) }
     ]
   },
   { path: '**', redirectTo: 'income' }

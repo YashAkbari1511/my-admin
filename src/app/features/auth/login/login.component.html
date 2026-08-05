@@ -3,15 +3,35 @@
     <div class="form-box">
       <div class="form-value">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div class="inputbox">
+          <div class="inputbox" style="margin-bottom: 30px;" [ngClass]="{'border-danger': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}">
             <ion-icon name="mail-outline"></ion-icon>
             <input type="email" formControlName="email" required>
             <label for="">Email</label>
+            @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)) {
+              <div style="position: absolute; bottom: -20px; left: 5px; font-size: 12px; color: #ff4d4d; line-height: 1;">
+                @if (loginForm.get('email')?.errors?.['required']) {
+                  <span>Email is required.</span>
+                }
+                @if (loginForm.get('email')?.errors?.['email']) {
+                  <span>Invalid email format.</span>
+                }
+              </div>
+            }
           </div>
-          <div class="inputbox">
+          <div class="inputbox" style="margin-bottom: 30px;" [ngClass]="{'border-danger': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)}">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input type="password" formControlName="password" required>
             <label for="">Password</label>
+            @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) {
+              <div style="position: absolute; bottom: -20px; left: 5px; font-size: 12px; color: #ff4d4d; line-height: 1;">
+                @if (loginForm.get('password')?.errors?.['required']) {
+                  <span>Password is required.</span>
+                }
+                @if (loginForm.get('password')?.errors?.['minlength']) {
+                  <span>Password must be at least 6 characters.</span>
+                }
+              </div>
+            }
           </div>
           <button type="submit" [disabled]="loginForm.invalid">{{ isLoginMode ? 'Log in' : 'Register' }}</button>
           <div class="register">
