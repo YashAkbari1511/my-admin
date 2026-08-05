@@ -32,7 +32,7 @@ export class YearlySavingComponent implements OnInit {
 
   constructor() {
     this.calcForm = this.fb.group({
-      yearlyAmount: [100000, [Validators.required, Validators.min(0)]],
+      yearlyAmount: [120000, [Validators.required, Validators.min(0)]],
       returnRate: [12, [Validators.required, Validators.min(0)]],
       years: [10, [Validators.required, Validators.min(1)]]
     });
